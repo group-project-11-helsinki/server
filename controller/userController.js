@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 const { User } = require('../models')
+=======
+const {User} = require('../models')
+>>>>>>> 0e2951757b5aac6bda9bab026b64fef111d7e6a2
 
-class Controller {
-  static register(req, res) {
+class UserController {
+  static register(req, res, next) {
     const { email, password } = req.body
     const newUser = { email, password }
     User.create(newUser)
@@ -12,11 +16,16 @@ class Controller {
       })
     })
     .catch(err => {
-      res.status(500).json({
-        message: 'internal server error'
-      })
+      // res.status(500).json({
+      //   message: 'internal server error'
+      // })
+      console.log(err);
     })
   }
 }
 
+<<<<<<< HEAD
 module.exports = Controller;
+=======
+module.exports = Controller;
+>>>>>>> 0e2951757b5aac6bda9bab026b64fef111d7e6a2
