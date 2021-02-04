@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const ImageController = require('../controller/imageController')
+// const ImageController = require('../controller/imageController')
 
 // router.get('/')
 router.get('/favorite', ImageController.getAll)

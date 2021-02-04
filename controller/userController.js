@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-const {User} = require('../models')
-class UserController {
-  
-}
-
-module.exports = UserController
-=======
-const { User } = require()
+const { User } = require('../models')
 
 class Controller {
   static register(req, res) {
@@ -28,4 +20,3 @@ class Controller {
 }
 
 module.exports = Controller;
->>>>>>> 93652c5d847cbb7d6cf96a6dd2d237924b432fd5
