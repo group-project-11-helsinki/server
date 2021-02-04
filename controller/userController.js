@@ -1,6 +1,6 @@
-const { User } = require('../models')
+const {User} = require('../models')
 
-class Controller {
+class UserController {
   static register(req, res, next) {
     const { email, password } = req.body
     const newUser = { email, password }
