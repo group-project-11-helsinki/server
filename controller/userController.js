@@ -1,6 +1,6 @@
-
-class Controller {
-
+const {User} = require('../models')
+class UserController {
+  
 }
 
-module.exports = Controller
+module.exports = UserController

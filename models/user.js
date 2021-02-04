@@ -26,7 +26,19 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       allowNull: false
     },
-    password: DataTypes.STRING
+    password: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Please Input Password'
+        },
+        min: {
+          args: 5,
+          msg: 'password should 5 character or more'
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'User',
