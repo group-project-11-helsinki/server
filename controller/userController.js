@@ -1,7 +1,7 @@
-const { User } = require()
+const { User } = require('../models')
 
 class Controller {
-  static register(req, res) {
+  static register(req, res, next) {
     const { email, password } = req.body
     const newUser = { email, password }
     User.create(newUser)
@@ -12,9 +12,10 @@ class Controller {
       })
     })
     .catch(err => {
-      res.status(500).json({
-        message: 'internal server error'
-      })
+      // res.status(500).json({
+      //   message: 'internal server error'
+      // })
+      console.log(err);
     })
   }
 }
