@@ -1,4 +1,6 @@
 const {User} = require('../models')
+const { comparePass } = require("../helper/bcrypt");
+const { generateToken } = require("../helper/jwt")
 
 class UserController {
   static register(req, res, next) {
