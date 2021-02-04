@@ -1,6 +1,6 @@
 const {User} = require('../models')
 const { comparePass } = require("../helper/bcrypt");
-const { generateToken } = require("../helper/jwt")
+const { generateToken } = require("../helper/jwt");
 
 class UserController {
   static register(req, res, next) {
@@ -14,10 +14,7 @@ class UserController {
       })
     })
     .catch(err => {
-      // res.status(500).json({
-      //   message: 'internal server error'
-      // })
-      console.log(err);
+      next(err)
     })
   }
 
