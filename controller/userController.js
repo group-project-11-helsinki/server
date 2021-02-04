@@ -1,14 +1,6 @@
-<<<<<<< HEAD
-const {User} = require('../models')
+const { User } = require("../models/index")
+
 class UserController {
-  
-}
-
-module.exports = UserController
-=======
-const { User } = require()
-
-class Controller {
   static register(req, res) {
     const { email, password } = req.body
     const newUser = { email, password }
@@ -27,5 +19,4 @@ class Controller {
   }
 }
 
-module.exports = Controller;
->>>>>>> 93652c5d847cbb7d6cf96a6dd2d237924b432fd5
+module.exports = UserController;
