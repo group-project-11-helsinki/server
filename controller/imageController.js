@@ -1,4 +1,6 @@
 const {Image} = require('../models')
+const axios = require("axios")
+const { response } = require('express')
 
 class ImageController {
   static getAll (req, res, next) {
@@ -45,6 +47,18 @@ class ImageController {
     })
     .catch(err => {
       next(err)
+    })
+  }
+
+  static showAllImage(req, res, next) {
+    axios.get(`https://api.unsplash.com/photos/random/?count=20&client_id=${process.env.API_KEY}`)
+    .then(response => {
+      let arr = response.data.map((element) => element.urls.full)
+      res.status(200).json(arr)
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json(err)
     })
   }
 }
