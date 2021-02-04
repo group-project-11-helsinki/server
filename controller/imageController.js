@@ -61,6 +61,8 @@ class ImageController {
       res.status(500).json(err)
     })
   }
+
+  
 }
 
 module.exports = ImageController
