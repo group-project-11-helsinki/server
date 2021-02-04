@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-const { User } = require('../models')
-=======
 const {User} = require('../models')
->>>>>>> 0e2951757b5aac6bda9bab026b64fef111d7e6a2
 
 class UserController {
   static register(req, res, next) {
@@ -24,8 +20,4 @@ class UserController {
   }
 }
 
-<<<<<<< HEAD
-module.exports = Controller;
-=======
-module.exports = Controller;
->>>>>>> 0e2951757b5aac6bda9bab026b64fef111d7e6a2
+module.exports = UserController;
