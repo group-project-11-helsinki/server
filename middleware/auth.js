@@ -1,5 +1,5 @@
 const { User, Image } = require('../models')
-const verifyToken = require('../helper/jwt')
+const { verifyToken } = require('../helper/jwt')
 
 function authenticate (req, res, next) {
   try {
