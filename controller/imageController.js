@@ -82,15 +82,6 @@ class ImageController {
       res.status(500).json(err)
     })
   }
-
-  static quotes(req, res, next) {
-    axios.get('https://api.adviceslip.com/advice')
-    .then(response => {
-      res.status(200).json(response.data)
-    }).catch(err => {
-      next(err)
-    })
-  }
 }
 
 module.exports = ImageController
