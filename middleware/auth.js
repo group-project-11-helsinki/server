@@ -4,43 +4,48 @@ const { verifyToken } = require('../helper/jwt')
 function authenticate (req, res, next) {
   try {
     if (req.headers.access_token) {
-      let { id } = verifyToken(req.headers.access_token)
-      User.findByPk(id)
+      let decoded = verifyToken(req.headers.access_token)
+  
+      User.findByPk(decoded.id)
         .then(user => {
+       
           if (user) {
-            req.UserId = payload.id
+            req.UserId = decoded.id
             next()
           } else {
-            throw ({ message: '403 forbidden' })
+            throw ({ name: "error-login",  message: 'not found' })
           }
         })
     } else {
-      throw ({ message: 'please login first'})
+      throw ({ name: "error-login",  message: 'please login first'})
     }
   } catch (err) {
-    console.log(err)
-    //next(err)
+  
+    next(err)
+    
   }
 }
 
 function authorize (req, res, next) {
   let UserId = req.UserId
-  let id = req.params.id
-  Image.findByPk(id)
+  Image.findOne({
+    where: {
+      UserId
+    }
+  })
     .then(image => {
       if (image) {
         if (image.UserId == UserId) {
           next()
         } else {
-          throw ({ name: 401, message: 'unauthorize' })
+          throw ({ name: "403", message: 'unauthorize' })
         }
       } else {
-        throw ({ name: 404, message: 'not found'})
+        throw ({ name: "404", message: 'not found'})
       }
     })
     .catch(err => {
-      console.log(err)
-      //next(err)
+      next(err)
     })
 }
 
