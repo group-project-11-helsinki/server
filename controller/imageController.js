@@ -5,7 +5,11 @@ const { response } = require('express')
 class ImageController {
   static getAll (req, res, next) {
     const UserId = req.UserId
-    Image.findAll(
+    Image.findAll({
+      where: {
+        UserId
+      }
+    }
     ).then((data) => {
       res.status(200).json(data)
     }).catch((err) => {
@@ -53,6 +57,7 @@ class ImageController {
   static showAllImage(req, res, next) {
     axios.get(`https://api.unsplash.com/photos/random/?count=20&client_id=${process.env.API_KEY}`)
     .then(response => {
+      // console.log(response.urls.small)
       let arr = response.data.map((element) => element.urls.small)
       res.status(200).json(arr)
     })
