@@ -48,7 +48,6 @@ class UserController {
   }
 
   static googleLogin (req, res, next) {
-    console.log('di controller')
     const idToken = req.body.idToken
     const client = new OAuth2Client(process.env.CLIENT_ID)
     let email
@@ -59,7 +58,6 @@ class UserController {
       .then(ticket => {
         const payload = ticket.getPayload()
         email = payload.email
-        console.log(payload.email)
         return User.findOne({ where: { email: email }})
       })
       .then(user => {
@@ -88,7 +86,6 @@ class UserController {
         }
       })
       .catch(err => {
-        console.log(err)
         next(err)
       })
   }

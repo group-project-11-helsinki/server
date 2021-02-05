@@ -1,6 +1,5 @@
 const {Image} = require('../models')
 const axios = require("axios")
-const { response } = require('express')
 
 class ImageController {
   static getAll (req, res, next) {
@@ -62,7 +61,23 @@ class ImageController {
       res.status(200).json(arr)
     })
     .catch(err => {
-      console.log(err)
+      res.status(500).json(err)
+    })
+  }
+
+  static coronaData(req, res, naxt) {
+    axios.get('https://covid-api.mmediagroup.fr/v1/cases?country=Indonesia')
+    .then(response => {
+      let dataCovid = {
+        confirmed: response.data.All.confirmed,
+        recovered: response.data.All.recovered,
+        deaths: response.data.All.deaths,
+        country: response.data.All.country
+      }
+      res.status(200).json(dataCovid)
+
+    })
+    .catch(err => {
       res.status(500).json(err)
     })
   }
