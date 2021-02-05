@@ -50,7 +50,7 @@ class ImageController {
   }
 
   static showAllImage(req, res, next) {
-    axios.get(`https://api.unsplash.com/photos/random/?count=20&client_id=${process.env.API_KEY}`)
+    axios.get(`https://api.unsplash.com/photos/random/?count=21&client_id=${process.env.API_KEY}`)
     .then(response => {
       let arr = response.data.map((element) => element.urls.small)
       res.status(200).json(arr)
@@ -70,7 +70,7 @@ class ImageController {
         country: response.data.All.country
       }
       res.status(200).json(dataCovid)
-
+      console.log(datacovid);
     })
     .catch(err => {
       res.status(500).json(err)

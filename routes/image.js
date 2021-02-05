@@ -2,9 +2,9 @@ const router = require('express').Router()
 const ImageController = require('../controller/imageController')
 const { authenticate , authorize} = require("../middleware/auth")
 
+router.get('/covid', ImageController.coronaData)
 router.use(authenticate)
 router.get('/', ImageController.showAllImage)
-router.get('/covid', ImageController.coronaData)
 router.post('/favorite', ImageController.addImage)
 
 router.use("/", authorize)
