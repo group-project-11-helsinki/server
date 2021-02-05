@@ -2,6 +2,7 @@ const {User} = require('../models')
 const { comparePass } = require("../helper/bcrypt");
 const { generateToken } = require("../helper/jwt");
 const { OAuth2Client } = require('google-auth-library');
+const axios = require("axios")
 
 class UserController {
   static register(req, res, next) {
@@ -88,6 +89,15 @@ class UserController {
       .catch(err => {
         next(err)
       })
+  }
+
+  static quotes(req, res, next) {
+    axios.get('https://api.adviceslip.com/advice')
+    .then(response => {
+      res.status(200).json(response.data.slip.advice)
+    }).catch(err => {
+      next(err)
+    })
   }
 }
 
