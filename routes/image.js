@@ -4,6 +4,7 @@ const { authenticate , authorize} = require("../middleware/auth")
 
 router.use(authenticate)
 router.get('/', ImageController.showAllImage)
+router.get('/covid', ImageController.coronaData)
 router.post('/favorite', ImageController.addImage)
 
 router.use("/", authorize)
