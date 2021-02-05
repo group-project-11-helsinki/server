@@ -22,7 +22,7 @@ class UserController {
   static async login(req, res, next) {
     const { email, password } = req.body
         try {
-            const findUser = await User.findOne({
+            const findUser = User.findOne({
                 where: {
                     email
                 }

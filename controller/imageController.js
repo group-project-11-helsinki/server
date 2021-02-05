@@ -1,5 +1,6 @@
 const {Image} = require('../models')
 const axios = require("axios")
+const { response } = require('express')
 
 class ImageController {
   static getAll (req, res, next) {
@@ -82,7 +83,14 @@ class ImageController {
     })
   }
 
-  
+  static quotes(req, res, next) {
+    axios.get('https://api.adviceslip.com/advice')
+    .then(response => {
+      res.status(200).json(response.data)
+    }).catch(err => {
+      next(err)
+    })
+  }
 }
 
 module.exports = ImageController
