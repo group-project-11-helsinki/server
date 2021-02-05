@@ -1,6 +1,7 @@
 const {User} = require('../models')
 const { comparePass } = require("../helper/bcrypt");
 const { generateToken } = require("../helper/jwt");
+const { OAuth2Client } = require('google-auth-library');
 
 class UserController {
   static register(req, res, next) {
@@ -44,6 +45,52 @@ class UserController {
         } catch(err) {
             next(err)
         }
+  }
+
+  static googleLogin (req, res, next) {
+    console.log('di controller')
+    const idToken = req.body.idToken
+    const client = new OAuth2Client(process.env.CLIENT_ID)
+    let email
+    client.verifyIdToken({
+      idToken,
+      audience: process.env.CLIENT_ID
+    })
+      .then(ticket => {
+        const payload = ticket.getPayload()
+        email = payload.email
+        console.log(payload.email)
+        return User.findOne({ where: { email: email }})
+      })
+      .then(user => {
+        if (user) {
+          let payload = {
+            id: user.dataValues.id,
+            email: user.dataValues.email
+          }
+          const access_token = generateToken(payload)
+          req.headers.access_token = access_token
+          res.status(200).json({ access_token })
+        } else {
+          let password = process.env.PASSWORD_FILLER
+          return User.create({ email, password })
+        }
+      })
+      .then(user => {
+        if (user) {
+          let payload = {
+            id: user.id,
+            email: user.id
+          }
+          const access_token = generateToken(payload)
+          req.headers.access_token = access_token
+          res.status(201).json({ access_token })
+        }
+      })
+      .catch(err => {
+        console.log(err)
+        next(err)
+      })
   }
 }
 
