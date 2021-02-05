@@ -53,7 +53,7 @@ class ImageController {
   static showAllImage(req, res, next) {
     axios.get(`https://api.unsplash.com/photos/random/?count=20&client_id=${process.env.API_KEY}`)
     .then(response => {
-      let arr = response.data.map((element) => element.urls.full)
+      let arr = response.data.map((element) => element.urls.small)
       res.status(200).json(arr)
     })
     .catch(err => {
