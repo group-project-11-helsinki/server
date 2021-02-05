@@ -2,6 +2,7 @@ const {User} = require('../models')
 const { comparePass } = require("../helper/bcrypt");
 const { generateToken } = require("../helper/jwt");
 const { OAuth2Client } = require('google-auth-library');
+const axios = require("axios")
 
 class UserController {
   static register(req, res, next) {
@@ -22,7 +23,7 @@ class UserController {
   static async login(req, res, next) {
     const { email, password } = req.body
         try {
-            const findUser = await User.findOne({
+            const findUser = User.findOne({
                 where: {
                     email
                 }
@@ -48,7 +49,6 @@ class UserController {
   }
 
   static googleLogin (req, res, next) {
-    console.log('di controller')
     const idToken = req.body.idToken
     const client = new OAuth2Client(process.env.CLIENT_ID)
     let email
@@ -59,7 +59,6 @@ class UserController {
       .then(ticket => {
         const payload = ticket.getPayload()
         email = payload.email
-        console.log(payload.email)
         return User.findOne({ where: { email: email }})
       })
       .then(user => {
@@ -88,9 +87,17 @@ class UserController {
         }
       })
       .catch(err => {
-        console.log(err)
         next(err)
       })
+  }
+
+  static quotes(req, res, next) {
+    axios.get('https://api.adviceslip.com/advice')
+    .then(response => {
+      res.status(200).json(response.data.slip.advice)
+    }).catch(err => {
+      next(err)
+    })
   }
 }
 
