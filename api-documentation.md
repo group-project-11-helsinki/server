@@ -238,13 +238,6 @@ Response:
 - status: 200
 - body:
 
-```json
-{
-  "slip": {
-    "slip_id": "integer",
-      "advice": "string"
-  }
-}
-```
+- quote (string)
 
 
